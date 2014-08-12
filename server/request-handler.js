@@ -33,16 +33,22 @@ exports.handleRequest = function(request, response) {
    * response.end() will be the body of the response - i.e. what shows
    * up in the browser.*/
 
+  // OPTIONS section
+  if (request.method === "OPTIONS") {
+    console.log("OPTIONS");
+    response.writeHead(200, defaultCorsHeaders);
+    response.end();
+
   // GET section
-  if (request.method === "GET") {
+  } else if (request.method === "GET") {
     console.log("GET");
 
     // PATH: /classes/messages
     if (request.url === "/classes/messages" || request.url === "/classes/room1") {
-      response.writeHead(200, {"Content-Type": "text/html"});
+      response.writeHead(200, headers);
       response.end(JSON.stringify(database));
     } else {
-      response.writeHead(404, {'Content-Type': 'text/html'});
+      response.writeHead(404, headers);
       response.end("404 Error");
     }
 
@@ -59,7 +65,7 @@ exports.handleRequest = function(request, response) {
       request.on('end', function() {
         database.results.push(JSON.parse(body));
       });
-      response.writeHead(201, {'Content-Type': 'text/html'});
+      response.writeHead(201, headers);
       response.end('post received');
     }
 
