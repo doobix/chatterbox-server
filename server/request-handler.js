@@ -38,7 +38,8 @@ exports.handleRequest = function(request, response) {
     console.log("GET");
 
     // PATH: /classes/messages
-    if (request.url === "/classes/messages") {
+    if (request.url === "/classes/messages" || request.url === "/classes/room1") {
+      response.writeHead(200, {"Content-Type": "text/html"});
       response.end(JSON.stringify(database));
     } else {
       response.writeHead(404, {'Content-Type': 'text/html'});
@@ -50,7 +51,7 @@ exports.handleRequest = function(request, response) {
     console.log("POST");
 
     // PATH: /send
-    if (request.url === "/classes/messages" || request.url === "/send") {
+    if (request.url === "/classes/messages" || request.url === "/classes/room1") {
       var body = "";
       request.on('data', function(data) {
         body += data;
