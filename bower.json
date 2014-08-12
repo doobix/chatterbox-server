@@ -1,0 +1,21 @@
+{
+  "name": "2014-07-chatterbox-server",
+  "version": "0.0.0",
+  "homepage": "https://github.com/eave/2014-07-chatterbox-server",
+  "authors": [
+    "Hack Reactor Students <accounts@hackreactor.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore": "~1.6.0"
+  }
+}
