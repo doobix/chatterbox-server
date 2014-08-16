@@ -60,7 +60,7 @@ $(function() {
         contentType: 'application/json',
         // data: { order: '-createdAt'},
         success: function(data) {
-          console.log(data);
+          // console.log(data);
 
           // Don't bother if we have nothing to work with
           if (!data.results || !data.results.length) { return; }
