@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var app = express();
 // var database = {};
 // database.results = [];
-var database = require('./database');
+var database = require('./server/database');
 
 var allowCrossDomain = function(req, res, next) {
   res.header("access-control-allow-origin", "*");
@@ -20,13 +20,18 @@ var allowCrossDomain = function(req, res, next) {
 }
 app.use(allowCrossDomain);
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/client'));
+
+app.get('/', function() {
+  express.static(__dirname + 'index.html');
+});
 
 app.route('/classes/messages')
 .get(function(req, res, next) {
-  // Local
+  // Local DB
   // res.send(JSON.stringify(database));
 
-  // Mongo
+  // Mongo DB
   database.find(function(err, results) {
     res.send({results: results});
   });
@@ -34,6 +39,8 @@ app.route('/classes/messages')
 .post(function(req, res, next) {
   // console.log("POST");
   // console.log(req.body);
+
+  // Local DB
   // database.results.push(req.body);
 
   // Mongo
@@ -43,9 +50,11 @@ app.route('/classes/messages')
   });
 })
 
-var server = app.listen(3000, function() {
-    console.log('Listening on port %d', server.address().port);
-});
+var port = process.env.PORT || 3000;
+var url = process.env.URL || 'localhost';
+
+var server = app.listen(port);
+console.log('Magic happening at', url, 'on:', port);
 
 /* These headers will allow Cross-Origin Resource Sharing (CORS).
  * This CRUCIAL code allows this server to talk to websites that
